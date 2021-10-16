@@ -61,11 +61,13 @@ if (!conexion.isClosed()){
       int i=1;
       while (rs.next())
       {
+         String isbn = rs.getString("isbn");
+         String titulo = rs.getString("titulo");
          out.println("<tr>");
             out.println("<td>"+ i +"</td>");
-            out.println("<td>"+rs.getString("isbn")+"</td>");
-            out.println("<td>"+rs.getString("titulo")+"</td>");
-            out.println("<td>"+"Actualizar<br>Eliminar"+"</td>");
+            out.println("<td>"+isbn+"</td>");
+            out.println("<td>"+titulo+"</td>");
+            out.println("<td>"+"Actualizar<br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
             out.println("</tr>");
             i++;
          }
@@ -76,4 +78,6 @@ if (!conexion.isClosed()){
       }
       
       %>
+
+      <a href="listado-csv.jsp" download="libros.csv">Descargar listado</a>
    </body>
