@@ -46,8 +46,8 @@
                         </div>
                      </div>
                      <br>
-                     <input type="SUBMIT" class="btn btn-primary " value="&nbsp;ACEPTAR&nbsp;" />
-                     <div class="text-white">/div>
+                     <input type="SUBMIT" class="btn btn-primary" value="ACEPTAR" />
+                     <div class="text-white">.</div>
                   </td>
 
                
@@ -56,7 +56,7 @@
             </table>
       </form>
 
-   <br><br>
+   <br>
 <%!
 public Connection getConnection(String path) throws SQLException {
    String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
