@@ -1,38 +1,64 @@
 <%@page contentType="text/html" pageEncoding="iso-8859-1" import="java.sql.*,net.ucanaccess.jdbc.*" %>
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   <title>Actualizar, Eliminar, Crear registros.</title>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width= , initial-scale=1.0">
+   <title>Actualizar, Eliminar, Crear registros</title>
+   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 </head>
 <body>
-   
-   <H1>MANTENIMIENTO DE LIBROS</H1>
-   <form action="matto.jsp" method="post" name="Actualizar">
-      <table>
-         <tr>
-            <td>ISBN<input type="text" name="isbn" value="" size="40"/>
-            </td>
-         </tr>
-         <tr>
-            <td>Título<input type="text" name="titulo" value="" size="50"/></td>
-            
-         </tr>
-         <tr><td> Action <input type="radio" name="Action" value="Actualizar" /> Actualizar
-            <input type="radio" name="Action" value="Eliminar" /> Eliminar
-            <input type="radio" name="Action" value="Crear" checked /> Crear
-         </td>
-         <td><input type="SUBMIT" value="ACEPTAR" />
-         </td>
-      </tr>
-   </form>
-</tr>
-</table>
-</form>
-<br><br>
+   <div class="container">
+      <br><br>
+      <H1>MANTENIMIENTO DE LIBROS</H1>
+      <form action="matto.jsp" method="post" name="Actualizar">
+            <table class="table">
+               <tr>
+                  <td><input type="text" name="isbn" value="" class="form-control" placeholder="ISBN" aria-label="ISBN"></td>
+               </tr>
+               <tr>    
+                  <td><input type="text" name="titulo" value="" class="form-control" placeholder="T&iacute;tulo" aria-label="T&iacutetulo"></td>    
+               </tr>
+               <tr>    
+                  <td><input type="text" name="autor" value="" class="form-control" placeholder="Autor" aria-label="Autor"></td>    
+               </tr>
+               <tr>
+                  <td> 
+                     <h5>Acci&oacute;n</h5>
+                     <div class="container">
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="Action" value="Actualizar" id="flexRadioDefault1">
+                           <label class="form-check-label" for="flexRadioDefault1">
+                           Actualizar
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="Action" value="Eliminar" id="flexRadioDefault1">
+                           <label class="form-check-label" for="flexRadioDefault1">
+                           Eliminar
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" name="Action" value="Crear" id="flexRadioDefault2" checked>
+                           <label class="form-check-label" for="flexRadioDefault2">
+                              Crear
+                           </label>
+                        </div>
+                     </div>
+                  </td>
+               
+            </tr>
+            <tr>
+               <td><input type="SUBMIT" class="btn btn-primary" value="ACEPTAR" /></td>
+            </tr>
+            </table>
+      </form>
+
+   <br><br>
 <%!
-public Connection getConnection() throws SQLException {
+public Connection getConnection(String path) throws SQLException {
    String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
-   String filePath= "c:\\Apache\\Tomcat\\webapps\\JSPdatos_Grupo13\\data\\datos.mdb";
+   String filePath= path + "\\datos.mdb";
    String userName="",password="";
    String fullConnectionString = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + filePath;
    
@@ -49,15 +75,17 @@ public Connection getConnection() throws SQLException {
 }
 %>
 <%
-Connection conexion = getConnection();
+ServletContext context = request.getServletContext();
+String path = context.getRealPath("/data");
+Connection conexion = getConnection(path);
 if (!conexion.isClosed()){
-   out.write("OK");
    
    Statement st = conexion.createStatement();
    ResultSet rs = st.executeQuery("select * from libros" );
    
    // Ponemos los resultados en un table de html
-   out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo</td><td>Acci&oacuten</td></tr>");
+  
+   out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo</td><td>Autor</td><td>Acci&oacuten</td></tr>");
       int i=1;
       while (rs.next())
       {
@@ -65,6 +93,7 @@ if (!conexion.isClosed()){
             out.println("<td>"+ i +"</td>");
             out.println("<td>"+rs.getString("isbn")+"</td>");
             out.println("<td>"+rs.getString("titulo")+"</td>");
+            out.println("<td>"+rs.getString("autor")+"</td>");
             out.println("<td>"+"Actualizar<br>Eliminar"+"</td>");
             out.println("</tr>");
             i++;
@@ -76,4 +105,6 @@ if (!conexion.isClosed()){
       }
       
       %>
+   </div>
+      <script src="js/bootstrap.min.js"></script>
    </body>

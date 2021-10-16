@@ -5,12 +5,15 @@
 /* Paso 1) Obtener los datos del formulario */
 String ls_isbn = request.getParameter("isbn");
 String ls_titulo = request.getParameter("titulo");
+String ls_autor = request.getParameter("autor");
 String ls_action = request.getParameter("Action");
 
 /* Paso 2) Inicializar variables */
 String ls_result = "Base de datos actualizada...";
 String ls_query = "";
-String filePath= "c:\\Apache\\Tomcat\\webapps\\JSPdatos_Grupo13\\data\\datos.mdb";
+ServletContext context = request.getServletContext();
+String path = context.getRealPath("/data");
+String filePath= path+"\\datos.mdb";
 String ls_dburl = "jdbc:odbc:Driver={MicroSoft Access Driver (*.mdb)};DBQ="+filePath;
 String ls_usuario = "";
 String ls_password = "";
@@ -18,10 +21,11 @@ String ls_dbdriver = "sun.jdbc.odbc.JdbcOdbcDriver";
 
 /* Paso 3) Crear query&nbsp; */
 if (ls_action.equals("Crear")) {
-    ls_query = " insert into libros (isbn, titulo)";
+    ls_query = " insert into libros (isbn, titulo, autor)";
     ls_query += " values (";
     ls_query += "'" + ls_isbn + "',";
-    ls_query += "'" + ls_titulo + "')";
+    ls_query += "'" + ls_titulo + "',";
+    ls_query += "'" + ls_autor + "')";
 }
 
 if (ls_action.equals("Eliminar")) {
@@ -32,6 +36,7 @@ if (ls_action.equals("Eliminar")) {
 if (ls_action.equals("Actualizar")) {
     ls_query = " update libros";
     ls_query += " set titulo= " + "'" + ls_titulo + "'";
+    ls_query += ", autor= " + "'" + ls_autor + "'";
     ls_query += " where isbn = " + "'" + ls_isbn + "'";
 }
 
@@ -65,21 +70,29 @@ try {
     }
 }
 %>
-html>
 <html>
-<head><title>Updating a Database</title></head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width= , initial-scale=1.0">
+        <title>Actualizar, Eliminar, Crear registros</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    </head>
 <body>
     
-    La siguiente instrucci�n fue ejecutada:
-    <br/><br/>
-    <%=ls_query%>
-    <br/><br/>
-    
-    El resultado fue:
-    <br/><br/>
-    <%=ls_result%>
-    <br/><br/>
-    
-    <a href="libros.jsp">Entre otro valor</a>
+    <div class="container">
+        <br/><br/>
+        <h4>La siguiente instrucci&oacute;n fue ejecutada: </h4>
+        <div class="alert alert-warning" role="alert">
+            <%=ls_query%>
+          </div>
+        
+        <h4>El resultado fue:</h4>
+        <div class="alert alert-info" role="alert">
+            <%=ls_result%>
+        </div>
+        
+        <a href="libros.jsp" class="btn btn-light">Ingresar otro valor</a> 
+    </div>
 </body>
 </html>
