@@ -57,7 +57,7 @@ if (!conexion.isClosed()){
    ResultSet rs = st.executeQuery("select * from libros" );
    
    // Ponemos los resultados en un table de html
-   out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo</td><td>Acci�n</td></tr>");
+   out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo</td><td>Acci&oacuten</td></tr>");
       int i=1;
       while (rs.next())
       {
