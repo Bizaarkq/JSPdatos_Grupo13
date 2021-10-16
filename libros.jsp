@@ -45,12 +45,12 @@
                            </label>
                         </div>
                      </div>
+                     <br>
+                     <input type="SUBMIT" class="btn btn-primary" value="ACEPTAR" />
                   </td>
                
             </tr>
-            <tr>
-               <td><input type="SUBMIT" class="btn btn-primary" value="ACEPTAR" /></td>
-            </tr>
+ 
             </table>
       </form>
 
