@@ -46,8 +46,10 @@
                         </div>
                      </div>
                      <br>
-                     <input type="SUBMIT" class="btn btn-primary" value="ACEPTAR" />
+                     <input type="SUBMIT" class="btn btn-primary " value="&nbsp;ACEPTAR&nbsp;" />
+                     <div class="text-white">/div>
                   </td>
+
                
             </tr>
  
