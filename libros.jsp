@@ -46,7 +46,7 @@
                         </div>
                      </div>
                      <br>
-                     <input type="SUBMIT" class="btn btn-primary" value="ACEPTAR" />
+                     <input type="SUBMIT" class="btn btn-primary" value="Aceptar" />
                      <div class="text-white">.</div>
                   </td>
 
@@ -57,6 +57,20 @@
       </form>
 
    <br>
+   <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ISBN</th>
+          <th scope="col">T&iacute;tulo</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Acci&oacute;n</th>
+
+        </tr>
+      </thead>
+      <tbody>
+
+  
 <%!
 public Connection getConnection(String path) throws SQLException {
    String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
@@ -87,7 +101,7 @@ if (!conexion.isClosed()){
    
    // Ponemos los resultados en un table de html
   
-   out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo</td><td>Autor</td><td>Acci&oacuten</td></tr>");
+   
       int i=1;
       while (rs.next())
       {
@@ -109,7 +123,7 @@ if (!conexion.isClosed()){
       }
       
       %>
-      <a href="listado-csv.jsp" download="libros.csv">Descargar listado</a>
+      <a  class="btn btn-primary" href="listado-csv.jsp" download="libros.csv">Descargar listado</a>
    </div>
       <script src="js/bootstrap.min.js"></script>
    </body>
