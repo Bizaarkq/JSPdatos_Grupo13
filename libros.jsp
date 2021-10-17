@@ -1,4 +1,31 @@
 <%@page contentType="text/html" pageEncoding="iso-8859-1" import="java.sql.*,net.ucanaccess.jdbc.*" %>
+<%!
+public Connection getConnection(String path) throws SQLException {
+   String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
+   String filePath= path + "\\datos.mdb";
+   String userName="",password="";
+   String fullConnectionString = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + filePath;
+   
+   Connection conn = null;
+   try{
+      Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+      conn = DriverManager.getConnection(fullConnectionString,userName,password);
+      
+   }
+   catch (Exception e) {
+      System.out.println("Error: " + e);
+   }
+   return conn;
+}
+%>
+<% ServletContext context = request.getServletContext();
+   String path = context.getRealPath("/data");
+   Connection conexion = getConnection(path);
+    if (!conexion.isClosed()){
+      Statement st = conexion.createStatement();
+      ResultSet ed = null;
+      ed = st.executeQuery("select * from editoriales");
+%>
 <html>
 <head>
    <meta charset="UTF-8">
@@ -21,6 +48,20 @@
                </tr>
                <tr>    
                   <td><input type="text" name="autor" value="" class="form-control" placeholder="Autor" aria-label="Autor"></td>    
+               </tr>
+               <tr>
+                  <td>
+                     <select class="form-select" aria-label="Editorial">
+                        <option selected>Seleccionar Editorial</option>
+                        <%while(ed.next()){ 
+                                 String nombre = ed.getString("nombre");%>
+                                 <option value="<%=nombre%>"><%=nombre%></option>
+                        <%}%>
+                     </select>
+                  </td>
+               </tr>
+               <tr>    
+                  <td><input type="number" min="1800" max="2021" name="anio" value="" class="form-control" placeholder="A&ntilde;o de publicaci&oacute;n" aria-label="Año"></td>    
                </tr>
                <tr>
                   <td> 
@@ -49,13 +90,9 @@
                      <input type="SUBMIT" class="btn btn-primary" value="Aceptar" />
                      <div class="text-white">.</div>
                   </td>
-
-               
             </tr>
- 
             </table>
       </form>
-
    <br>
    <table class="table table-striped">
       <thead>
@@ -64,33 +101,14 @@
           <th scope="col">ISBN</th>
           <th scope="col"><a href="libros.jsp?orden=ascendente" name="linktitulo">T&iacute;tulo</a></th>
           <th scope="col">Autor</th>
+          <th scope="col">Editorial</th>
+          <th scope="col" style="text-align:center;">A&ntilde;o de <br>publicaci&oacute;n</th>
           <th scope="col">Acci&oacute;n</th>
-
         </tr>
       </thead>
       <tbody>
-
-  
-<%!
-public Connection getConnection(String path) throws SQLException {
-   String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
-   String filePath= path + "\\datos.mdb";
-   String userName="",password="";
-   String fullConnectionString = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + filePath;
-   
-   Connection conn = null;
-   try{
-      Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-      conn = DriverManager.getConnection(fullConnectionString,userName,password);
-      
-   }
-   catch (Exception e) {
-      System.out.println("Error: " + e);
-   }
-   return conn;
-}
-%>
 <%
+<<<<<<< Updated upstream
 ServletContext context = request.getServletContext();
 String path = context.getRealPath("/data");
 Connection conexion = getConnection(path);
@@ -98,6 +116,8 @@ Connection conexion = getConnection(path);
 if (!conexion.isClosed()){
    
    Statement st = conexion.createStatement();
+=======
+>>>>>>> Stashed changes
    ResultSet rs = null;
    /*Codigo utilizado para el ejercicio 2*/
    if(request.getParameter("orden")!=null)
@@ -116,6 +136,8 @@ if (!conexion.isClosed()){
             out.println("<td>"+isbn+"</td>");
             out.println("<td>"+titulo+"</td>");
             out.println("<td>"+rs.getString("autor")+"</td>");
+            out.println("<td></td>");
+            out.println("<td></td>");
             out.println("<td>"+"Actualizar<br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
             out.println("</tr>");
             i++;
