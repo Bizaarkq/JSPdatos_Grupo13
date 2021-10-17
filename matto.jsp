@@ -9,6 +9,9 @@ String ls_autor = request.getParameter("autor");
 String ls_editorial = request.getParameter("editorial");
 String ls_publicacion = request.getParameter("anioPublic");
 String ls_action = request.getParameter("Action");
+//Buscar
+String ls_t_buscar = request.getParameter("titulo_buscar");
+
 
 /* Paso 2) Inicializar variables */
 String ls_result = "Base de datos actualizada...";
@@ -22,6 +25,13 @@ String ls_password = "";
 String ls_dbdriver = "sun.jdbc.odbc.JdbcOdbcDriver";
 
 /* Paso 3) Crear query&nbsp; */
+
+//Buscar
+if (ls_action.equals("BUSCAR")) {
+    ls_query = "select * from libros where titulo LIKE";
+    ls_query += "'" + ls_t_buscar + "%'";    
+}
+
 if (ls_action.equals("Crear")) {
     ls_query = " insert into libros (isbn, titulo, autor, id_editorial, anioPublic)";
     ls_query += " values (";
@@ -92,13 +102,81 @@ try {
         <div class="alert alert-warning" role="alert">
             <%=ls_query%>
           </div>
-        
         <h4>El resultado fue:</h4>
         <div class="alert alert-info" role="alert">
-            <%=ls_result%>
+                <!--Buscar-->
+           <% if(ls_action.equals("BUSCAR")){
+                out.println("Las busqueda se muestra en la siguiente tabla");
+                
+                 out.println("<table class=table table-striped>");
+                    out.println("<thead>");
+                    out.println("<tr>");
+                    out.println("<th scope=col>"+"#"+"</th>");
+                    out.println("<th scope=col>"+"ISBN"+"</td>");
+                    out.println("<th scope=col>"+"T&iacute;tulo"+"</td>");
+                    out.println("<th scope=col>"+"Autor"+"</td>");
+                    out.println("<th scope=col>"+"Editorial"+"</th>");
+                    out.println("<th scope=col"+"style=text-align:center;>"+"A&ntilde;o de"+"<br>"+"publicaci&oacute;n"+"</th>");
+                    out.println("<th scope=col>"+"Acci&oacute;n"+"</td>");
+                    out.println("</tr>");
+                    out.println("</thead>");
+                    out.println("<tbody>");
+            }
+            else{
+            out.println("Base de datos actualizada...");
+            }
+            %>
+            <%!
+            //Buscar
+            public Connection getConnection(String path) throws SQLException {
+            String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
+            String filePath= path + "\\datos.mdb";
+            String userName="",password="";
+            String fullConnectionString = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + filePath;
+            
+            Connection conn = null;
+            try{
+                Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+                conn = DriverManager.getConnection(fullConnectionString,userName,password);
+                
+            }
+            catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+            return conn;
+            }
+            %>
+                <%
+            Connection conexion = getConnection(path);
+            if (!conexion.isClosed() && ls_action.equals("BUSCAR")){
+    
+            Statement st = conexion.createStatement();
+            ResultSet rs = st.executeQuery(ls_query);    
+            int i=1;
+            while (rs.next())
+            {
+                String isbn = rs.getString("isbn");
+                String titulo = rs.getString("titulo");
+                out.println("<tr>");
+                    out.println("<td>"+ i +"</td>");
+                    out.println("<td>"+isbn+"</td>");
+                    out.println("<td>"+titulo+"</td>");
+                    out.println("<td>"+rs.getString("autor")+"</td>");
+                    out.println("<td>"+titulo+"</td>");
+                    out.println("<td>"+rs.getString("anioPublic")+"</td>");
+                    out.println("<td>"+"Actualizar<br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
+                    out.println("</tr>");
+                    i++;
+                }
+                out.println("</table>");
+                conexion.close();
+            }
+            else{
+                conexion.close();
+            }
+         %>
         </div>
-        
         <a href="libros.jsp" class="btn btn-light">Ingresar otro valor</a> 
     </div>
-</body>
+</body> 
 </html>

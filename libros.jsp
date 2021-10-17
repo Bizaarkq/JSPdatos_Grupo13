@@ -68,6 +68,14 @@ public Connection getConnection(String path) throws SQLException {
                   <td> 
                      <h5>Acci&oacute;n</h5>
                      <div class="container">
+                     <!--Buscar-->
+                        <div class="form-check">
+                           Buscar
+                           <input class="form-check-input" type="radio" name="Action" class="btn btn-outline-primary" value="BUSCAR" id="flexRadioDefault3" checked>
+                           <input type="text" name="titulo_buscar" class="form-control rounded" placeholder="Ingrese un titulo">
+                           <label class="form-check-label" for="flexRadioDefault3">
+                           </label>
+                        </div>
                         <div class="form-check">
                            <input class="form-check-input" type="radio" name="Action" value="Actualizar" id="flexRadioDefault1">
                            <label class="form-check-label" for="flexRadioDefault1">
@@ -86,6 +94,10 @@ public Connection getConnection(String path) throws SQLException {
                               Crear
                            </label>
                         </div>
+
+
+
+
                      </div>
                      <br>
                      <input type="SUBMIT" class="btn btn-primary" value="Aceptar" />
