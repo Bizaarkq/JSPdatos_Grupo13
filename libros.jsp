@@ -108,16 +108,6 @@ public Connection getConnection(String path) throws SQLException {
       </thead>
       <tbody>
 <%
-<<<<<<< Updated upstream
-ServletContext context = request.getServletContext();
-String path = context.getRealPath("/data");
-Connection conexion = getConnection(path);
-
-if (!conexion.isClosed()){
-   
-   Statement st = conexion.createStatement();
-=======
->>>>>>> Stashed changes
    ResultSet rs = null;
    /*Codigo utilizado para el ejercicio 2*/
    if(request.getParameter("orden")!=null)
