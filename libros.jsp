@@ -38,7 +38,7 @@ public Connection getConnection(String path) throws SQLException {
    <div class="container">
       <br><br>
       <H1>MANTENIMIENTO DE LIBROS</H1>
-      <form action="matto.jsp" method="post" name="Actualizar">
+      <form action="matto.jsp" id="libro_form" method="get" name="Actualizar">
             <table class="table">
                <tr>
                   <td><input type="text" name="isbn" value="" class="form-control" placeholder="ISBN" aria-label="ISBN"></td>
@@ -51,11 +51,12 @@ public Connection getConnection(String path) throws SQLException {
                </tr>
                <tr>
                   <td>
-                     <select class="form-select" aria-label="Editorial">
+                     <select class="form-select" name="editorial" form="libro_form" aria-label="Editorial">
                         <option selected>Seleccionar Editorial</option>
                         <%while(ed.next()){ 
-                                 String nombre = ed.getString("nombre");%>
-                                 <option value="<%=nombre%>"><%=nombre%></option>
+                                 String nombre = ed.getString("nombre");
+                                 String id_editorial = ed.getString("id_editorial");%>
+                                 <option value="<%=id_editorial%>"><%=nombre%></option>
                         <%}%>
                      </select>
                   </td>
@@ -111,9 +112,9 @@ public Connection getConnection(String path) throws SQLException {
    ResultSet rs = null;
    /*Codigo utilizado para el ejercicio 2*/
    if(request.getParameter("orden")!=null)
-      rs = st.executeQuery("select * from libros order by titulo asc");
+      rs = st.executeQuery("select * from libros inner join editoriales on libros.id_editorial = editoriales.id_editorial order by titulo asc");
    else
-      rs = st.executeQuery("select * from libros");
+      rs = st.executeQuery("select * from libros inner join editoriales on libros.id_editorial = editoriales.id_editorial");
    
    // Ponemos los resultados en un table de html
       int i=1;
@@ -126,7 +127,7 @@ public Connection getConnection(String path) throws SQLException {
             out.println("<td>"+isbn+"</td>");
             out.println("<td>"+titulo+"</td>");
             out.println("<td>"+rs.getString("autor")+"</td>");
-            out.println("<td></td>");
+            out.println("<td>"+rs.getString("nombre")+"</td>");
             out.println("<td></td>");
             out.println("<td>"+"Actualizar<br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
             out.println("</tr>");
@@ -139,7 +140,7 @@ public Connection getConnection(String path) throws SQLException {
       }
       
       %>
-      <a  class="btn btn-primary" href="listado-csv.jsp" download="libros.csv">Descargar listado</a>
+      <a  class="btn btn-primary" href="listado-csv.jsp" >Descargar listado</a>
    </div>
       <script src="js/bootstrap.min.js"></script>
    </body>
