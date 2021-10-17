@@ -38,7 +38,7 @@ public Connection getConnection(String path) throws SQLException {
    <div class="container">
       <br><br>
       <H1>MANTENIMIENTO DE LIBROS</H1>
-      <form action="matto.jsp" id="libro_form" method="get" name="Actualizar">
+      <form action="matto.jsp" id="libro_form" method="post" name="Actualizar">
             <table class="table">
                <tr>
                   <td><input type="text" name="isbn" value="" class="form-control" placeholder="ISBN" aria-label="ISBN"></td>
