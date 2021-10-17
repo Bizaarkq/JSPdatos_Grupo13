@@ -62,7 +62,7 @@ public Connection getConnection(String path) throws SQLException {
                   </td>
                </tr>
                <tr>    
-                  <td><input type="number" min="1800" max="2021" name="anio" value="" class="form-control" placeholder="A&ntilde;o de publicaci&oacute;n" aria-label="Año"></td>    
+                  <td><input type="number" min="1000" max="2021" name="anioPublic" value="" class="form-control" placeholder="A&ntilde;o de publicaci&oacute;n" aria-label="Año"></td>    
                </tr>
                <tr>
                   <td> 
@@ -128,7 +128,7 @@ public Connection getConnection(String path) throws SQLException {
             out.println("<td>"+titulo+"</td>");
             out.println("<td>"+rs.getString("autor")+"</td>");
             out.println("<td>"+rs.getString("nombre")+"</td>");
-            out.println("<td></td>");
+            out.println("<td>"+rs.getString("anioPublic")+"</td>");
             out.println("<td>"+"Actualizar<br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
             out.println("</tr>");
             i++;
