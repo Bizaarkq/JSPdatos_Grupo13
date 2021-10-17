@@ -62,7 +62,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">ISBN</th>
-          <th scope="col">T&iacute;tulo</th>
+          <th scope="col"><a href="libros.jsp?orden=ascendente" name="linktitulo">T&iacute;tulo</a></th>
           <th scope="col">Autor</th>
           <th scope="col">Acci&oacute;n</th>
 
@@ -94,14 +94,18 @@ public Connection getConnection(String path) throws SQLException {
 ServletContext context = request.getServletContext();
 String path = context.getRealPath("/data");
 Connection conexion = getConnection(path);
+
 if (!conexion.isClosed()){
    
    Statement st = conexion.createStatement();
-   ResultSet rs = st.executeQuery("select * from libros" );
+   ResultSet rs = null;
+   /*Codigo utilizado para el ejercicio 2*/
+   if(request.getParameter("orden")!=null)
+      rs = st.executeQuery("select * from libros order by titulo asc");
+   else
+      rs = st.executeQuery("select * from libros");
    
    // Ponemos los resultados en un table de html
-  
-   
       int i=1;
       while (rs.next())
       {
