@@ -23,13 +23,12 @@ String ls_dburl = "jdbc:odbc:Driver={MicroSoft Access Driver (*.mdb)};DBQ="+file
 String ls_usuario = "";
 String ls_password = "";
 String ls_dbdriver = "sun.jdbc.odbc.JdbcOdbcDriver";
-
 /* Paso 3) Crear query&nbsp; */
 
 //Buscar
 if (ls_action.equals("BUSCAR")) {
-    ls_query = "select * from libros where titulo LIKE";
-    ls_query += "'" + ls_t_buscar + "%'";    
+    ls_query = "select * from libros INNER JOIN editoriales ON libros.id_editorial = editoriales.Id_editorial where titulo LIKE";
+    ls_query += "'%" + ls_t_buscar + "%'";
 }
 
 if (ls_action.equals("Crear")) {
@@ -162,7 +161,7 @@ try {
                     out.println("<td>"+isbn+"</td>");
                     out.println("<td>"+titulo+"</td>");
                     out.println("<td>"+rs.getString("autor")+"</td>");
-                    out.println("<td>"+titulo+"</td>");
+                    out.println("<td>"+rs.getString("nombre")+"</td>");
                     out.println("<td>"+rs.getString("anioPublic")+"</td>");
                     out.println("<td>"+"Actualizar<br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
                     out.println("</tr>");

@@ -152,7 +152,12 @@ public Connection getConnection(String path) throws SQLException {
       }
       
       %>
-      <a  class="btn btn-primary" href="listado-csv.jsp" >Descargar listado</a>
+      <a  class="btn btn-success" href="listado-csv.jsp" >Descargar listado Excel</a>
+            <a  class="btn btn-danger" href="listado-xml.jsp" >Descargar listado XML</a>
+      <a  class="btn btn-warning" href="listado-json.jsp" >Descargar listado JSON</a>
+      <a  class="btn btn-info" href="listado-html.jsp" >Descargar listado HTML</a>
+      <a  class="btn btn-dark" href="listado-txt.jsp" >Descargar listado TXT</a>
+
    </div>
       <script src="js/bootstrap.min.js"></script>
    </body>

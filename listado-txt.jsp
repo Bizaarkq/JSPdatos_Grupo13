@@ -1,8 +1,8 @@
 <%@page import="java.sql.*, java.io.*" pageEncoding="iso-8859-1" %>
 <%
 response.setStatus(200);
-response.setHeader("content-type","application/vnd.ms-excel");
-response.setHeader("content-disposition","filename=libros.csv");
+response.setHeader("content-type","plain/txt");
+response.setHeader("content-disposition","filename=libros.txt");
 %>
 <%
 try{
@@ -30,7 +30,6 @@ try{
         impresion += l_rs.getString("autor") + ";";
         impresion += l_rs.getString("nombre")+ ";";
         impresion += l_rs.getString("anioPublic");
-
         out.println(impresion);
         impresion = ""; 
     }
