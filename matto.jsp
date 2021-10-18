@@ -192,7 +192,7 @@ try {
                     out.println("<td>"+rs.getString("autor")+"</td>");
                     out.println("<td>"+rs.getString("nombre")+"</td>");
                     out.println("<td>"+rs.getString("anioPublic")+"</td>");
-                    out.println("<td>"+"Actualizar<br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
+                    out.println("<td>"+"<a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Actualizar'>Actualizar</a><br><a href='matto.jsp?isbn="+isbn+"&titulo="+titulo+"&Action=Eliminar'>Eliminar</a>"+"</td>");
                     out.println("</tr>");
                     i++;
                 }
