@@ -39,80 +39,89 @@ public Connection getConnection(String path) throws SQLException {
       <br><br>
       <H1>MANTENIMIENTO DE LIBROS</H1>
       <!-- Formulario que contiene el boton buscar-->
+      <div class="bg-light text-dark">
          <form action="matto.jsp" id="form" method="post" name="search">
-            Buscar<br/>
+          
             <div class="container">
+               <br>
+               <h5>Buscar</h5>
                <input class="form-check-input" type="hidden" name="B" value="BUSCAR" id="btn_buscar" checked>
                <!--input txt para el titulo-->
-               <input type="text" name="titulo_buscar" class="form-control" placeholder="Ingrese un titulo">
-               </label>
+               <input onkeyup="mensajeChange()" type="text" id="mensaje" name="titulo_buscar" class="form-control" placeholder="Ingrese un titulo" >
+               <br>
+               <input onkeyup="mensajeChange()" type="text" id="mensaje2" name="autor_buscar" class="form-control" placeholder="Ingrese un Autor">
            </div>
            <br/>
            <div class="container">
                <!--Boton buscar-->
-               <input type="SUBMIT" class="btn btn-success" value="Buscar"/>
+               <input type="SUBMIT" id="enviar" class="btn btn-primary" value="Buscar" disabled>
            </div>
+         </form>
+      </div>
+      <div class="bg-light text-dark">
+         <form action="matto.jsp" id="libro_form" method="post" name="Actualizar">
+               <div class="container">
+                  <br>
+                  <h5>Mantenimiento</h5>
+               </div>
+               <table class="table">
+                  <tr>
+                     <td><input type="text" name="isbn" value="" class="form-control" placeholder="ISBN" aria-label="ISBN"></td>
+                  </tr>
+                  <tr>    
+                     <td><input type="text" name="titulo" value="" class="form-control" placeholder="T&iacute;tulo" aria-label="T&iacutetulo"></td>    
+                  </tr>
+                  <tr>    
+                     <td><input type="text" name="autor" value="" class="form-control" placeholder="Autor" aria-label="Autor"></td>    
+                  </tr>
+                  <tr>
+                     <td>
+                        <select class="form-select" name="editorial" form="libro_form" aria-label="Editorial">
+                           <option selected>Seleccionar Editorial</option>
+                           <%while(ed.next()){ 
+                                    String nombre = ed.getString("nombre");
+                                    String id_editorial = ed.getString("id_editorial");%>
+                                    <option value="<%=id_editorial%>"><%=nombre%></option>
+                           <%}%>
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>    
+                     <td><input type="number" min="1000" max="2021" name="anioPublic" value="" class="form-control" placeholder="A&ntilde;o de publicaci&oacute;n" aria-label="Año"></td>    
+                  </tr>
+                  <tr>
+                     <td> 
+                        <h5>Acci&oacute;n</h5>
+                        <div class="container">
+                        <!--Buscar-->
 
-</form>
-
-      <form action="matto.jsp" id="libro_form" method="post" name="Actualizar">
-            <table class="table">
-               <tr>
-                  <td><input type="text" name="isbn" value="" class="form-control" placeholder="ISBN" aria-label="ISBN"></td>
-               </tr>
-               <tr>    
-                  <td><input type="text" name="titulo" value="" class="form-control" placeholder="T&iacute;tulo" aria-label="T&iacutetulo"></td>    
-               </tr>
-               <tr>    
-                  <td><input type="text" name="autor" value="" class="form-control" placeholder="Autor" aria-label="Autor"></td>    
-               </tr>
-               <tr>
-                  <td>
-                     <select class="form-select" name="editorial" form="libro_form" aria-label="Editorial">
-                        <option selected>Seleccionar Editorial</option>
-                        <%while(ed.next()){ 
-                                 String nombre = ed.getString("nombre");
-                                 String id_editorial = ed.getString("id_editorial");%>
-                                 <option value="<%=id_editorial%>"><%=nombre%></option>
-                        <%}%>
-                     </select>
-                  </td>
-               </tr>
-               <tr>    
-                  <td><input type="number" min="1000" max="2021" name="anioPublic" value="" class="form-control" placeholder="A&ntilde;o de publicaci&oacute;n" aria-label="Año"></td>    
-               </tr>
-               <tr>
-                  <td> 
-                     <h5>Acci&oacute;n</h5>
-                     <div class="container">
-                     <!--Buscar-->
-
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="Action" value="Actualizar" id="flexRadioDefault1">
-                           <label class="form-check-label" for="flexRadioDefault1">
-                           Actualizar
-                           </label>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="Action" value="Actualizar" id="flexRadioDefault1">
+                              <label class="form-check-label" for="flexRadioDefault1">
+                              Actualizar
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="Action" value="Eliminar" id="flexRadioDefault1">
+                              <label class="form-check-label" for="flexRadioDefault1">
+                              Eliminar
+                              </label>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="Action" value="Crear" id="flexRadioDefault2" checked>
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                 Crear
+                              </label>
+                           </div>
                         </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="Action" value="Eliminar" id="flexRadioDefault1">
-                           <label class="form-check-label" for="flexRadioDefault1">
-                           Eliminar
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" name="Action" value="Crear" id="flexRadioDefault2" checked>
-                           <label class="form-check-label" for="flexRadioDefault2">
-                              Crear
-                           </label>
-                        </div>
-                     </div>
-                     <br>
-                     <input type="SUBMIT" class="btn btn-primary" value="Aceptar" />
-                     <div class="text-white">.</div>
-                  </td>
-            </tr>
-            </table>
-      </form>
+                        <br>
+                        <input type="SUBMIT" class="btn btn-primary" value="Aceptar" />
+                        <div class="text-white">.</div>
+                     </td>
+               </tr>
+               </table>
+         </form>
+      </div>
    <br>
    <table class="table table-striped">
       <thead>
@@ -167,4 +176,5 @@ public Connection getConnection(String path) throws SQLException {
 
    </div>
       <script src="js/bootstrap.min.js"></script>
+      <script src="js/script.js"></script>
    </body>

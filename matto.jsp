@@ -14,7 +14,7 @@ String ls_B = request.getParameter("B");
 
 //Buscar
 String ls_t_buscar = request.getParameter("titulo_buscar");
-
+String ls_a_buscar = request.getParameter("autor_buscar");
 
 /* Paso 2) Inicializar variables */
 String ls_result = "Base de datos actualizada...";
@@ -33,6 +33,8 @@ try{
     if (ls_B.equals("BUSCAR")) {
     ls_query = "select * from libros INNER JOIN editoriales ON libros.id_editorial = editoriales.Id_editorial where titulo LIKE";
     ls_query += "'%" + ls_t_buscar + "%'";
+    ls_query += "AND autor LIKE";
+    ls_query += "'%" + ls_a_buscar + "%'";
     ls_action ="Vacio";
     }
     }catch(NullPointerException e){
