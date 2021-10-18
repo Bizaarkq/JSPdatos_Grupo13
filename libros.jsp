@@ -38,6 +38,23 @@ public Connection getConnection(String path) throws SQLException {
    <div class="container">
       <br><br>
       <H1>MANTENIMIENTO DE LIBROS</H1>
+      <!-- Formulario que contiene el boton buscar-->
+         <form action="matto.jsp" id="form" method="post" name="search">
+            Buscar<br/>
+            <div class="container">
+               <input class="form-check-input" type="hidden" name="B" value="BUSCAR" id="btn_buscar" checked>
+               <!--input txt para el titulo-->
+               <input type="text" name="titulo_buscar" class="form-control" placeholder="Ingrese un titulo">
+               </label>
+           </div>
+           <br/>
+           <div class="container">
+               <!--Boton buscar-->
+               <input type="SUBMIT" class="btn btn-success" value="Buscar"/>
+           </div>
+
+</form>
+
       <form action="matto.jsp" id="libro_form" method="post" name="Actualizar">
             <table class="table">
                <tr>
@@ -69,13 +86,7 @@ public Connection getConnection(String path) throws SQLException {
                      <h5>Acci&oacute;n</h5>
                      <div class="container">
                      <!--Buscar-->
-                        <div class="form-check">
-                           Buscar
-                           <input class="form-check-input" type="radio" name="Action" class="btn btn-outline-primary" value="BUSCAR" id="flexRadioDefault3" checked>
-                           <input type="text" name="titulo_buscar" class="form-control rounded" placeholder="Ingrese un titulo">
-                           <label class="form-check-label" for="flexRadioDefault3">
-                           </label>
-                        </div>
+
                         <div class="form-check">
                            <input class="form-check-input" type="radio" name="Action" value="Actualizar" id="flexRadioDefault1">
                            <label class="form-check-label" for="flexRadioDefault1">
@@ -94,10 +105,6 @@ public Connection getConnection(String path) throws SQLException {
                               Crear
                            </label>
                         </div>
-
-
-
-
                      </div>
                      <br>
                      <input type="SUBMIT" class="btn btn-primary" value="Aceptar" />
